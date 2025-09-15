@@ -7,31 +7,31 @@ import Buttons from "../../../../../components/Buttons"
 function CoursesSection() {
     const courses = [
         {
-            thumbnail: "/thumb-fullstack.png",
+            thumbnail: "thumb-fullstack.png",
             title: "Fullstack Online",
             lastLearned: "Học cách đây 3 ngày",
             progress: "70",
         },
         {
-            thumbnail: "/thumb-js-nangcao.png",
+            thumbnail: "thumb-js-nangcao.png",
             title: "JavaScript Nâng Cao",
             lastLearned: "Học cách đây 3 ngày",
             progress: "70",
         },
         {
-            thumbnail: "/thumb-js-pro.png",
+            thumbnail: "thumb-js-pro.png",
             title: "JavaScript Pro",
             lastLearned: "Học cách đây 3 ngày",
             progress: "70",
         },
         {
-            thumbnail: "/thumb-node-express.png",
+            thumbnail: "thumb-node-express.png",
             title: "Node & ExpressJS",
             lastLearned: "Học cách đây 3 ngày",
             progress: "70",
         },
         {
-            thumbnail: "/thumb-reactjs.png",
+            thumbnail: "thumb-reactjs.png",
             title: "ReactJS",
             lastLearned: "Học cách đây 3 ngày",
             progress: "70",

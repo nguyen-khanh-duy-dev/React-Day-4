@@ -28,7 +28,7 @@ function Profile() {
                     <h3>Upload your avatar</h3>
                     <label className={styles.uploadAvatar}>
                         <img
-                            src={preview || "/avatar_placeholder.png"}
+                            src={preview || "avatar_placeholder.png"}
                             className={styles.image}
                         ></img>
                         <input
