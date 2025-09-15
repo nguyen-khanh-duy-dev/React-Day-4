@@ -1,0 +1,31 @@
+.container {
+    position: relative;
+
+    #searchInput {
+        padding: 8px 14px 8px 30px;
+        border-radius: 999px;
+        border: 2px solid rgb(232, 232, 232);
+        min-width: 350px;
+    }
+
+    .icon {
+        position: absolute;
+        top: 50%;
+        left: 8px;
+        transform: translateY(-50%);
+        font-size: 18px;
+        font-weight: 600;
+        opacity: 0.7;
+
+        &:hover {
+            color: #000;
+            opacity: 1;
+        }
+    }
+
+    .dropDown {
+        position: absolute;
+        top: 130%;
+        left: 0;
+    }
+}

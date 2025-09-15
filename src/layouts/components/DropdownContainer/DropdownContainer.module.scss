@@ -1,0 +1,15 @@
+.container {
+    box-shadow: 0 -4px 32px #0003;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    min-width: 360px;
+    min-height: 50px;
+    max-height: calc(90vh - 70px);
+    overflow: auto;
+}
+
+.bordered {
+    border: 1px solid #ccc;
+}

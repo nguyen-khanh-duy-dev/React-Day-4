@@ -1,0 +1,27 @@
+.customDrop {
+    max-width: 300px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .customBtn {
+        background: transparent;
+        font-size: 14px;
+        color: rgb(255, 0, 0);
+        opacity: 0.7;
+
+        &:hover {
+            background: #ededed;
+        }
+    }
+}
+
+.myCourses {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}

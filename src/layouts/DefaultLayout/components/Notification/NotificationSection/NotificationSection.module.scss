@@ -1,0 +1,73 @@
+// Notification Section
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+    }
+
+    .customBtn {
+        background: transparent;
+        font-size: 14px;
+        color: red;
+        opacity: 0.7;
+
+        &:hover {
+            background: #efefef;
+        }
+    }
+}
+
+// NotificationCard
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 10px;
+
+    &:hover {
+        background-color: #1618230d;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .left {
+        object-fit: contain;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+    }
+
+    &.isRead {
+        background-color: #f051231a;
+        border-radius: 8px;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .title {
+            font-size: 14px;
+        }
+
+        .date {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgb(245, 121, 121);
+        }
+    }
+
+    .icon {
+        flex: 2;
+        text-align: end;
+        color: rgb(96, 96, 242);
+    }
+}
