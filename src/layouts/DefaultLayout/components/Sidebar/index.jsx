@@ -3,8 +3,9 @@ import { ImProfile } from "react-icons/im"
 import { NavLink } from "react-router"
 import { TbArrowBigUpLines } from "react-icons/tb"
 import { FaBox } from "react-icons/fa"
+import { GrPerformance } from "react-icons/gr"
+import { PiCubeFocusLight } from "react-icons/pi"
 
-import Buttons from "../../../../components/Buttons"
 import styles from "./Sidebar.module.scss"
 
 function Sidebar() {
@@ -13,6 +14,12 @@ function Sidebar() {
         { to: "/profile", title: "Profile", icon: <ImProfile /> },
         { to: "/modal", title: "Modal", icon: <FaBox /> },
         { to: "/scroll", title: "Scroll", icon: <TbArrowBigUpLines /> },
+        {
+            to: "/performance-demo",
+            title: "Perfor",
+            icon: <GrPerformance />,
+        },
+        { to: "/focus-demo", title: "Focus", icon: <PiCubeFocusLight /> },
     ]
     return (
         <div className={styles.container}>

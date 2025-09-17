@@ -1,33 +1,60 @@
 import { IoClose } from "react-icons/io5"
 import PropTypes from "prop-types"
-import { useEffect, useState } from "react"
+import { useEffect, forwardRef, useImperativeHandle, useState } from "react"
 import clsx from "clsx"
 
 import styles from "./Modal.module.scss"
 
-function Modal({
-    children,
-    shouldCloseOnOverlayClick = true,
-    shouldCloseOnEscClick = true,
-    onAfterOpen,
-    onAfterClose,
-    isOpen = false,
-    closeTimeMS = 300, // mặc định 300ms cho animation
-    className,
-    onRequestClose,
-    onOverlayClassName,
-    bodyOpenClassName,
-}) {
-    const [closing, setClosing] = useState(false)
-    const [shouldRender, setShouldRender] = useState(isOpen)
+const Modal = forwardRef(function Modal(
+    {
+        children,
+        shouldCloseOnOverlayClick = true,
+        shouldCloseOnEscClick = true,
+        onAfterOpen,
+        onAfterClose,
+        isOpen = false,
+        closeTimeMS = 3000, // mặc định 300ms cho animation
+        className,
+        onRequestOpen,
+        onRequestClose,
+        onOverlayClassName,
+        bodyOpenClassName,
+    },
+    ref
+) {
+    const [isVisiable, setIsVisible] = useState(false)
+
+    useImperativeHandle(
+        ref,
+        () => {
+            return {
+                open() {
+                    onRequestOpen?.()
+                    onAfterOpen?.()
+                    console.log("Open using ref")
+                },
+                close() {
+                    onRequestClose?.()
+                    onAfterClose?.()
+                    console.log("Close using ref")
+                },
+                toggle() {
+                    if (isOpen) {
+                        this.close()
+                    } else {
+                        this.open()
+                    }
+                    console.log("Toggle using ref")
+                },
+            }
+        },
+        [onAfterClose, onAfterOpen, onRequestClose, onRequestOpen, isOpen]
+    )
 
     // Hàm đóng modal
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleRequestClose = () => {
-        setClosing(true) // bắt đầu animation đóng
         setTimeout(() => {
-            setShouldRender(false) // gỡ khỏi DOM sau khi đóng xong
-            setClosing(false)
             onRequestClose?.()
             onAfterClose?.()
         }, closeTimeMS)
@@ -51,7 +78,7 @@ function Modal({
     // Khi mở modal
     useEffect(() => {
         if (isOpen) {
-            setShouldRender(true)
+            setIsVisible(true)
             onAfterOpen?.()
         }
     }, [isOpen, onAfterOpen])
@@ -68,16 +95,11 @@ function Modal({
         }
     }, [isOpen, bodyOpenClassName])
 
-    if (!shouldRender) return null
+    if (!isOpen) return null
 
     return (
         <div className={styles.modal}>
-            <div
-                className={clsx(styles.content, className, {
-                    [styles.open]: isOpen && !closing,
-                    [styles.closing]: closing,
-                })}
-            >
+            <div className={clsx(styles.content, className)}>
                 {/* Button close */}
                 <button
                     className={styles.closeBtn}
@@ -91,10 +113,7 @@ function Modal({
 
             {/* Overlay */}
             <div
-                className={clsx(styles.overlay, onOverlayClassName, {
-                    [styles.open]: isOpen && !closing,
-                    [styles.closing]: closing,
-                })}
+                className={clsx(styles.overlay, onOverlayClassName)}
                 onClick={() => {
                     if (shouldCloseOnOverlayClick) {
                         handleRequestClose()
@@ -103,12 +122,13 @@ function Modal({
             ></div>
         </div>
     )
-}
+})
 
 Modal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     children: PropTypes.node.isRequired,
     onRequestClose: PropTypes.func,
+    onRequestOpen: PropTypes.func,
     closeTimeMS: PropTypes.number,
     onOverlayClassName: PropTypes.string,
     className: PropTypes.string,

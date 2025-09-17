@@ -12,6 +12,8 @@ import ModalDemo from "../../pages/ModalDemo"
 import Profile from "../../pages/Profile"
 import ScrollDemo from "../../pages/ScrollDemo"
 import NotFound from "../../pages/NotFound"
+import PerformanceDemo from "../../pages/PerformanceDemo"
+import FocusDemo from "../../pages/FocusDemo"
 
 function AppRoutes() {
     return (
@@ -22,6 +24,11 @@ function AppRoutes() {
                     <Route path="profile" element={<Profile />} />
                     <Route path="modal" element={<ModalDemo />} />
                     <Route path="scroll" element={<ScrollDemo />} />
+                    <Route
+                        path="performance-demo"
+                        element={<PerformanceDemo />}
+                    />
+                    <Route path="focus-demo" element={<FocusDemo />} />
                 </Route>
 
                 <Route path="*" element={<NotFound />}></Route>

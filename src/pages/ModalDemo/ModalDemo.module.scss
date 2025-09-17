@@ -67,34 +67,3 @@
     }
 }
 
-// Custom aimation
-/* Modal content animation */
-.modalWithAnimation {
-    opacity: 0; /* ban đầu ẩn */
-    transform: translateY(-20px); /* ban đầu dịch lên một chút */
-    transition: all 0.5s ease; /* hiệu ứng mượt trong 0.3s */
-}
-
-.modalWithAnimation.open {
-    opacity: 1; /* hiện ra */
-    transform: translateY(0);
-}
-
-.modalWithAnimation.close {
-    opacity: 0; /* mờ dần */
-    transform: translateY(-20px);
-}
-
-/* Overlay animation */
-.overlayWithAnimation {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.overlayWithAnimation.open {
-    opacity: 1; /* overlay dần hiện */
-}
-
-.overlayWithAnimation.close {
-    opacity: 0; /* overlay dần ẩn */
-}

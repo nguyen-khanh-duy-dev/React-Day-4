@@ -19,18 +19,8 @@
         overflow: hidden;
 
         transform: scale(0.8);
-        opacity: 0;
+        opacity: 1;
         transition: all 0.4s ease;
-
-        &.open {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        &.closing {
-            transform: scale(0.8);
-            opacity: 0;
-        }
     }
 
     .closeBtn {
@@ -50,10 +40,10 @@
     transition: opacity 0.3s ease;
 
     &.open {
-        opacity: 0.6; // mờ mờ nền
+        opacity: 0.6;
     }
 
-    &.closing {
+    &.close {
         opacity: 0;
     }
 }
