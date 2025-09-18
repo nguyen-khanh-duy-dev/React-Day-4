@@ -14,6 +14,9 @@ import ScrollDemo from "../../pages/ScrollDemo"
 import NotFound from "../../pages/NotFound"
 import PerformanceDemo from "../../pages/PerformanceDemo"
 import FocusDemo from "../../pages/FocusDemo"
+import HocDemo from "../../pages/HOCDemo"
+import RenderProps from "../../pages/RenderProps"
+import HookDemo from "../../pages/HookDemo"
 
 function AppRoutes() {
     return (
@@ -29,6 +32,9 @@ function AppRoutes() {
                         element={<PerformanceDemo />}
                     />
                     <Route path="focus-demo" element={<FocusDemo />} />
+                    <Route path="hoc-demo" element={<HocDemo />} />
+                    <Route path="render-props-demo" element={<RenderProps />} />
+                    <Route path="custom-hook-demo" element={<HookDemo />} />
                 </Route>
 
                 <Route path="*" element={<NotFound />}></Route>

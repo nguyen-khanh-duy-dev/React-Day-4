@@ -17,10 +17,21 @@
         background-color: #fff;
         border-radius: 10px;
         overflow: hidden;
-
+        transition: all 0.3s ease;
         transform: scale(0.8);
+        opacity: 0;
+    }
+
+    // trạng thái mở
+    .contentOpen {
+        transform: scale(1);
         opacity: 1;
-        transition: all 0.4s ease;
+    }
+
+    // trạng thái đóng
+    .contentClose {
+        transform: scale(0.8);
+        opacity: 0;
     }
 
     .closeBtn {
@@ -35,15 +46,15 @@
 }
 
 .overlay {
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
 
-    &.open {
-        opacity: 0.6;
+    &.overlayOpen {
+        opacity: 1;
     }
 
-    &.close {
+    &.overlayClose {
         opacity: 0;
     }
 }

@@ -13,7 +13,7 @@ const Modal = forwardRef(function Modal(
         onAfterOpen,
         onAfterClose,
         isOpen = false,
-        closeTimeMS = 3000, // mặc định 300ms cho animation
+        closeTimeMS = 300, // mặc định 300ms cho animation
         className,
         onRequestOpen,
         onRequestClose,
@@ -22,7 +22,7 @@ const Modal = forwardRef(function Modal(
     },
     ref
 ) {
-    const [isVisiable, setIsVisible] = useState(false)
+    const [isVisible, setIsVisible] = useState(false)
 
     useImperativeHandle(
         ref,
@@ -79,9 +79,11 @@ const Modal = forwardRef(function Modal(
     useEffect(() => {
         if (isOpen) {
             setIsVisible(true)
-            onAfterOpen?.()
+        } else if (isVisible) {
+            const timer = setTimeout(() => setIsVisible(false), closeTimeMS)
+            return () => clearTimeout(timer)
         }
-    }, [isOpen, onAfterOpen])
+    }, [isVisible, closeTimeMS, isOpen])
 
     // Thêm class cho body khi modal mở
     useEffect(() => {
@@ -95,25 +97,32 @@ const Modal = forwardRef(function Modal(
         }
     }, [isOpen, bodyOpenClassName])
 
-    if (!isOpen) return null
+    if (!isVisible) return null
 
     return (
         <div className={styles.modal}>
-            <div className={clsx(styles.content, className)}>
-                {/* Button close */}
+            <div
+                className={clsx(
+                    styles.content,
+                    className,
+                    isVisible ? styles.contentOpen : styles.contentClose
+                )}
+            >
                 <button
                     className={styles.closeBtn}
                     onClick={handleRequestClose}
                 >
                     <IoClose />
                 </button>
-
                 <div className={styles.inner}>{children}</div>
             </div>
 
-            {/* Overlay */}
             <div
-                className={clsx(styles.overlay, onOverlayClassName)}
+                className={clsx(
+                    styles.overlay,
+                    onOverlayClassName,
+                    isOpen ? styles.overlayOpen : styles.overlayClose
+                )}
                 onClick={() => {
                     if (shouldCloseOnOverlayClick) {
                         handleRequestClose()

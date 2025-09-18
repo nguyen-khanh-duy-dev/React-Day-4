@@ -20,6 +20,17 @@ function Sidebar() {
             icon: <GrPerformance />,
         },
         { to: "/focus-demo", title: "Focus", icon: <PiCubeFocusLight /> },
+        { to: "/hoc-demo", title: "HOC", icon: <PiCubeFocusLight /> },
+        {
+            to: "/render-props-demo",
+            title: "Ren",
+            icon: <PiCubeFocusLight />,
+        },
+        {
+            to: "/custom-hook-demo",
+            title: "Hook",
+            icon: <PiCubeFocusLight />,
+        },
     ]
     return (
         <div className={styles.container}>
