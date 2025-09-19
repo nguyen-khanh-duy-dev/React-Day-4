@@ -13,22 +13,22 @@ function Sidebar() {
         { to: "/", title: "Home", icon: <ImHome /> },
         { to: "/profile", title: "Profile", icon: <ImProfile /> },
         { to: "/modal", title: "Modal", icon: <FaBox /> },
-        { to: "/scroll", title: "Scroll", icon: <TbArrowBigUpLines /> },
+        { to: "/scroll", title: "Scroll Demo", icon: <TbArrowBigUpLines /> },
         {
             to: "/performance-demo",
-            title: "Perfor",
+            title: "Performance Demo",
             icon: <GrPerformance />,
         },
-        { to: "/focus-demo", title: "Focus", icon: <PiCubeFocusLight /> },
-        { to: "/hoc-demo", title: "HOC", icon: <PiCubeFocusLight /> },
+        { to: "/focus-demo", title: "Focus Demo", icon: <PiCubeFocusLight /> },
+        { to: "/hoc-demo", title: "HOC Demo", icon: <PiCubeFocusLight /> },
         {
             to: "/render-props-demo",
-            title: "Ren",
+            title: "Render Props",
             icon: <PiCubeFocusLight />,
         },
         {
             to: "/custom-hook-demo",
-            title: "Hook",
+            title: "Hook Demo",
             icon: <PiCubeFocusLight />,
         },
     ]

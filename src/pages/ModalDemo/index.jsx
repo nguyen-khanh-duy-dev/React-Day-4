@@ -67,31 +67,25 @@ function ModalDemo() {
     )
 
     return (
-        <div className={styles.container}>
-            <Header />
-            <div className={styles.content}>
-                <Sidebar />
-                <div className={styles.left_content}>
-                    <button onClick={openModal}>Open Modal - Day 37</button>
-                    <button onClick={handleOpenRef}>
-                        Open Modal Ref - Day 38
-                    </button>
-                    <button onClick={handleCloseRef}>
-                        Close Modal Ref - Day 38
-                    </button>
-                    <button onClick={handleToggleRef}>
-                        Toggle Modal Ref - Day 38
-                    </button>
-                    <Modal
-                        ref={modalRef}
-                        isOpen={isOpen}
-                        onRequestClose={closeModal}
-                        onRequestOpen={openModal}
-                        className={styles.customModal}
-                    >
-                        {loginContent}
-                    </Modal>
-                </div>
+        <div className={styles.content}>
+            <div className={styles.left_content}>
+                <button onClick={openModal}>Open Modal - Day 37</button>
+                <button onClick={handleOpenRef}>Open Modal Ref - Day 38</button>
+                <button onClick={handleCloseRef}>
+                    Close Modal Ref - Day 38
+                </button>
+                <button onClick={handleToggleRef}>
+                    Toggle Modal Ref - Day 38
+                </button>
+                <Modal
+                    ref={modalRef}
+                    isOpen={isOpen}
+                    onRequestClose={closeModal}
+                    onRequestOpen={openModal}
+                    className={styles.customModal}
+                >
+                    {loginContent}
+                </Modal>
             </div>
         </div>
     )

@@ -52,42 +52,34 @@ function PerformanceDemo() {
     }
 
     return (
-        <div className={styles.container}>
-            <Header />
-            <div className={styles.content}>
-                <Sidebar />
-                <div className={styles.right_content}>
-                    <div className={styles.change_name}>
-                        <div>Name: {name}</div>
-                        <button onClick={handleChangeName}>Change Name</button>
-                    </div>
+        <div className={styles.content}>
+            <div className={styles.right_content}>
+                <div className={styles.change_name}>
+                    <div>Name: {name}</div>
+                    <button onClick={handleChangeName}>Change Name</button>
+                </div>
 
-                    <div className={styles.counter}>
-                        <CounterDisplay
-                            counter={count}
-                            onIncrement={handleIncrement}
-                        />
-                        <button onClick={handleIncrement}>
-                            Increment Count
-                        </button>
-                        <ActionButtons
-                            onIncrement={handleIncrement}
-                            onReset={handleReset}
-                        />
-                    </div>
+                <div className={styles.counter}>
+                    <CounterDisplay
+                        counter={count}
+                        onIncrement={handleIncrement}
+                    />
+                    <button onClick={handleIncrement}>Increment Count</button>
+                    <ActionButtons
+                        onIncrement={handleIncrement}
+                        onReset={handleReset}
+                    />
+                </div>
 
-                    <div className={styles.addItems}>
-                        <div className={styles.inputWrapper}>
-                            <input
-                                ref={inputRef}
-                                placeholder="Add new items"
-                            ></input>
-                            <button onClick={handleAddNewItems}>
-                                Add Items
-                            </button>
-                        </div>
-                        <ExpensiveChild items={items} />
+                <div className={styles.addItems}>
+                    <div className={styles.inputWrapper}>
+                        <input
+                            ref={inputRef}
+                            placeholder="Add new items"
+                        ></input>
+                        <button onClick={handleAddNewItems}>Add Items</button>
                     </div>
+                    <ExpensiveChild items={items} />
                 </div>
             </div>
         </div>

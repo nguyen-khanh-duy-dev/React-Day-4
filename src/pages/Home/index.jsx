@@ -5,11 +5,7 @@ import Sidebar from "../../layouts/DefaultLayout/components/Sidebar"
 function Home() {
     return (
         <div className={styles.container}>
-            <Header></Header>
-            <div className={styles.content}>
-                <Sidebar />
-                <h1>Đây là home page</h1>
-            </div>
+            <h1>Đây là home page</h1>
         </div>
     )
 }

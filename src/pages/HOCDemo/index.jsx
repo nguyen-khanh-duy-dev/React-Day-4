@@ -14,10 +14,7 @@ function HocDemo() {
         }, 1000)
     }
     return (
-        <div>
-            <Header />
             <div className={styles.content}>
-                <Sidebar />
                 <div className={styles.left_content}>
                     <button onClick={handleToggleInfo}>Toggle Info</button>
                     <div className={styles.info}>
@@ -32,7 +29,6 @@ function HocDemo() {
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 
