@@ -16,8 +16,7 @@
 
 -   renderProps: Sử dụng **children** props như một hàm nhận các tham số truyền ra từ một component con, và sử dụng tham số truyền ra đó để thực hiện logic trong chính hàm chidlren
 
-![image.png](<img width="705" height="371" alt="image" src="https://github.com/user-attachments/assets/b97bbf3b-de52-4dd8-939a-e71692ee658a" />
-)
+![image.png](<img width="705" height="371" alt="image" src="https://github.com/user-attachments/assets/b97bbf3b-de52-4dd8-939a-e71692ee658a" />)
 
 Các logic sẽ thực hiện trong component DataFetcher và trả ra dữ liệu là data, loading, error. Và trong hàm children sẽ dùng dữ liệu đó để thực hiện logic khác
 
