@@ -36,6 +36,7 @@ const Modal = forwardRef(function Modal(
     const openTimer = useRef(null)
     const closeTimer = useRef(null)
 
+    // Bài 38: Update modal sử dụng forwardRef and props đặc biệt ref
     useImperativeHandle(
         ref,
         () => ({

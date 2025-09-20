@@ -7,6 +7,7 @@ function RenderProps() {
     return (
         <div className={styles.content}>
             <div className={styles.left_content}>
+            
                 <DataFetcher url="https://jsonplaceholder.typicode.com/posts?_limit=5">
                     {({ data, loading, error }) => {
                         if (loading) return <div>Loading posts...</div>

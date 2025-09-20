@@ -1,7 +1,7 @@
 import styles from "./UserProfile.module.scss"
 import withLoading from "../../hoc/withLoading.jsx"
 
-const UserProfile = withLoading(() => {
+const UserProfile = () => {
     return (
         <div className={styles.container}>
             <h3>User Profile</h3>
@@ -12,6 +12,8 @@ const UserProfile = withLoading(() => {
             </div>
         </div>
     )
-})
+}
 
-export default UserProfile
+const UserProfileWithLoading = withLoading(UserProfile)
+
+export default UserProfileWithLoading

@@ -1,5 +1,7 @@
 import { memo, useMemo } from "react"
 
+// Khi thằng cha sử dụng ExpensiveChild mà items không thay đổi
+// => Sử dụng memo giúp ExpensiveChild sẽ ko thay đổi
 const ExpensiveChild = memo(({ items }) => {
     console.log("Expensive Child re-render")
     const expensiveCalculation = useMemo(() => {

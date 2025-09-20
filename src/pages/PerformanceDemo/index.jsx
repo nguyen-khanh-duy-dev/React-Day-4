@@ -22,7 +22,7 @@ function PerformanceDemo() {
     }, [])
 
     // Nếu ko có useCallback và memo
-    // Thì sẽ luôn tạo ra một tham chiếu mới chó hàm handleReset và luôn re-render ActionButtons
+    // Thì sẽ luôn tạo ra một tham chiếu mới cho hàm handleReset và luôn re-render ActionButtons
     // Nếu ko có thì ngay cả bấm thay đổi tên cũng sẽ thay re-render compoenent con
     const handleReset = useCallback(() => {
         setCount(0)

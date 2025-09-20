@@ -4,7 +4,7 @@ import Header from "../../layouts/DefaultLayout/components/Header"
 import Sidebar from "../../layouts/DefaultLayout/components/Sidebar"
 import styles from "./HOCDemo.module.scss"
 
-import UserProfile from "../../components/UserProfile"
+import UserProfileWithLoading from "../../components/UserProfile"
 import ProductList from "../../components/ProductList"
 
 function HocDemo() {
@@ -20,7 +20,7 @@ function HocDemo() {
             <div className={styles.left_content}>
                 <button onClick={handleToggleInfo}>Toggle Info</button>
                 <div className={styles.info}>
-                    <UserProfile
+                    <UserProfileWithLoading
                         isLoading={isLoading}
                         counter={true}
                         className={styles.userInfo}
