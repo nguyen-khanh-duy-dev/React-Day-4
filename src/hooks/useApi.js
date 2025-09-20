@@ -21,6 +21,7 @@ function useApi(url) {
             .then((resultData) => {
                 setData(resultData)
                 setLoading(false)
+                setError(null)
             })
             .catch((error) => {
                 setError(error)

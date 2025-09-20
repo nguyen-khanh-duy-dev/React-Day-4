@@ -1,6 +1,12 @@
 import { IoClose } from "react-icons/io5"
 import PropTypes from "prop-types"
-import { useEffect, forwardRef, useImperativeHandle, useState } from "react"
+import {
+    useEffect,
+    forwardRef,
+    useImperativeHandle,
+    useState,
+    useRef,
+} from "react"
 import clsx from "clsx"
 
 import styles from "./Modal.module.scss"
@@ -9,108 +15,102 @@ const Modal = forwardRef(function Modal(
     {
         children,
         shouldCloseOnOverlayClick = true,
-        shouldCloseOnEscClick = true,
+        shouldCloseOnEsc = true,
         onAfterOpen,
         onAfterClose,
         isOpen = false,
-        closeTimeMS = 300, // mặc định 300ms cho animation
+        closeTimeoutMS = 300,
         className,
         onRequestOpen,
         onRequestClose,
-        onOverlayClassName,
+        overlayClassName, // <— đúng spec
         bodyOpenClassName,
+        htmlOpenClassName = "modal-open", // <— thêm HTML class theo spec
     },
     ref
 ) {
-    const [isVisible, setIsVisible] = useState(false)
+    const [mounted, setMounted] = useState(isOpen)
+    const [visible, setVisible] = useState(isOpen)
+    const prevFocusedRef = useRef(null)
+    const contentRef = useRef(null)
+    const openTimer = useRef(null)
+    const closeTimer = useRef(null)
 
     useImperativeHandle(
         ref,
-        () => {
-            return {
-                open() {
-                    onRequestOpen?.()
-                    onAfterOpen?.()
-                    console.log("Open using ref")
-                },
-                close() {
-                    onRequestClose?.()
-                    onAfterClose?.()
-                    console.log("Close using ref")
-                },
-                toggle() {
-                    if (isOpen) {
-                        this.close()
-                    } else {
-                        this.open()
-                    }
-                    console.log("Toggle using ref")
-                },
-            }
-        },
-        [onAfterClose, onAfterOpen, onRequestClose, onRequestOpen, isOpen]
+        () => ({
+            open: () => onRequestOpen?.(),
+            close: () => onRequestClose?.(),
+            toggle: () => (isOpen ? onRequestClose?.() : onRequestOpen?.()),
+        }),
+        [isOpen, onRequestOpen, onRequestClose]
     )
 
-    // Hàm đóng modal
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const handleRequestClose = () => {
-        setTimeout(() => {
-            onRequestClose?.()
-            onAfterClose?.()
-        }, closeTimeMS)
-    }
-
-    // Xử lý phím Escape
-    useEffect(() => {
-        const handle = (e) => {
-            if (e.code === "Escape" && shouldCloseOnEscClick) {
-                handleRequestClose()
-            }
-        }
-        if (isOpen) {
-            document.addEventListener("keydown", handle)
-        }
-        return () => {
-            document.removeEventListener("keydown", handle)
-        }
-    }, [isOpen, shouldCloseOnEscClick, handleRequestClose])
-
-    // Khi mở modal
+    // phản ứng theo isOpen
     useEffect(() => {
         if (isOpen) {
-            setIsVisible(true)
-        } else if (isVisible) {
-            const timer = setTimeout(() => setIsVisible(false), closeTimeMS)
-            return () => clearTimeout(timer)
-        }
-    }, [isVisible, closeTimeMS, isOpen])
+            setMounted(true)
+            requestAnimationFrame(() => setVisible(true))
 
-    // Thêm class cho body khi modal mở
-    useEffect(() => {
-        if (isOpen && bodyOpenClassName) {
-            document.body.classList.add(bodyOpenClassName)
+            if (bodyOpenClassName)
+                document.body.classList.add(bodyOpenClassName)
+            if (htmlOpenClassName)
+                document.documentElement.classList.add(htmlOpenClassName)
+            prevFocusedRef.current = document.activeElement
+
+            clearTimeout(openTimer.current)
+            openTimer.current = setTimeout(() => {
+                contentRef.current?.focus()
+                onAfterOpen?.()
+            }, closeTimeoutMS)
+        } else if (mounted) {
+            setVisible(false)
+            clearTimeout(closeTimer.current)
+            closeTimer.current = setTimeout(() => {
+                onAfterClose?.()
+                if (bodyOpenClassName)
+                    document.body.classList.remove(bodyOpenClassName)
+                if (htmlOpenClassName)
+                    document.documentElement.classList.remove(htmlOpenClassName)
+                prevFocusedRef.current?.focus?.()
+                setMounted(false)
+            }, closeTimeoutMS)
         }
         return () => {
-            if (bodyOpenClassName) {
-                document.body.classList.remove(bodyOpenClassName)
-            }
+            clearTimeout(openTimer.current)
+            clearTimeout(closeTimer.current)
         }
-    }, [isOpen, bodyOpenClassName])
+    }, [isOpen, mounted, closeTimeoutMS, bodyOpenClassName, htmlOpenClassName, onAfterOpen, onAfterClose])
 
-    if (!isVisible) return null
+    // ESC
+    useEffect(() => {
+        if (!shouldCloseOnEsc || !mounted) return
+        const handler = (e) => {
+            if (e.key === "Escape") onRequestClose?.()
+        }
+        document.addEventListener("keydown", handler)
+        return () => document.removeEventListener("keydown", handler)
+    }, [shouldCloseOnEsc, mounted, onRequestClose])
+
+    if (!mounted) return null
 
     return (
         <div className={styles.modal}>
             <div
+                ref={contentRef}
+                tabIndex={-1}
                 className={clsx(
                     styles.content,
                     className,
-                    isVisible ? styles.contentOpen : styles.contentClose
+                    visible ? styles.contentOpen : styles.contentClose
                 )}
+                role="dialog"
+                aria-modal="true"
+                onMouseDown={(e) => e.stopPropagation()}
             >
                 <button
                     className={styles.closeBtn}
-                    onClick={handleRequestClose}
+                    onClick={() => onRequestClose?.()}
                 >
                     <IoClose />
                 </button>
@@ -120,15 +120,15 @@ const Modal = forwardRef(function Modal(
             <div
                 className={clsx(
                     styles.overlay,
-                    onOverlayClassName,
-                    isOpen ? styles.overlayOpen : styles.overlayClose
+                    overlayClassName,
+                    visible ? styles.overlayOpen : styles.overlayClose
                 )}
-                onClick={() => {
-                    if (shouldCloseOnOverlayClick) {
-                        handleRequestClose()
-                    }
+                onMouseDown={(e) => {
+                    if (!shouldCloseOnOverlayClick) return
+                    // chỉ khi click đúng overlay
+                    if (e.target === e.currentTarget) onRequestClose?.()
                 }}
-            ></div>
+            />
         </div>
     )
 })
@@ -138,14 +138,15 @@ Modal.propTypes = {
     children: PropTypes.node.isRequired,
     onRequestClose: PropTypes.func,
     onRequestOpen: PropTypes.func,
-    closeTimeMS: PropTypes.number,
-    onOverlayClassName: PropTypes.string,
+    closeTimeoutMS: PropTypes.number,
+    overlayClassName: PropTypes.string,
     className: PropTypes.string,
     bodyOpenClassName: PropTypes.string,
-    shouldCloseOnEscClick: PropTypes.bool,
+    shouldCloseOnEsc: PropTypes.bool,
     shouldCloseOnOverlayClick: PropTypes.bool,
     onAfterClose: PropTypes.func,
     onAfterOpen: PropTypes.func,
+    htmlOpenClassName: PropTypes.string,
 }
 
 export default Modal

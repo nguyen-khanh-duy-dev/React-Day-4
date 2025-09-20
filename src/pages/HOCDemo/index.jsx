@@ -1,9 +1,11 @@
 import { useState } from "react"
-import UserProfile from "../../components/UserProfile"
+
 import Header from "../../layouts/DefaultLayout/components/Header"
 import Sidebar from "../../layouts/DefaultLayout/components/Sidebar"
-import ProductList from "../../components/ProductList"
 import styles from "./HOCDemo.module.scss"
+
+import UserProfile from "../../components/UserProfile"
+import ProductList from "../../components/ProductList"
 
 function HocDemo() {
     const [isLoading, setIsLoading] = useState(true)
@@ -14,21 +16,22 @@ function HocDemo() {
         }, 1000)
     }
     return (
-            <div className={styles.content}>
-                <div className={styles.left_content}>
-                    <button onClick={handleToggleInfo}>Toggle Info</button>
-                    <div className={styles.info}>
-                        <UserProfile
-                            isLoading={isLoading}
-                            className={styles.userInfo}
-                        />
-                        <ProductList
-                            isLoading={isLoading}
-                            className={styles.productInfo}
-                        />
-                    </div>
+        <div className={styles.content}>
+            <div className={styles.left_content}>
+                <button onClick={handleToggleInfo}>Toggle Info</button>
+                <div className={styles.info}>
+                    <UserProfile
+                        isLoading={isLoading}
+                        counter={true}
+                        className={styles.userInfo}
+                    />
+                    <ProductList
+                        isLoading={isLoading}
+                        className={styles.productInfo}
+                    />
                 </div>
             </div>
+        </div>
     )
 }
 

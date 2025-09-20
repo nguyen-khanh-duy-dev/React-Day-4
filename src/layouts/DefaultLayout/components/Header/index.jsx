@@ -1,12 +1,11 @@
+import { NavLink } from "react-router"
+
 import AppLogo from "../AppLogo"
 import styles from "./Header.module.scss"
 import SearchForm from "../SearchForm"
 import MyCourses from "../MyCourses"
 import Notification from "../Notification"
 import UserMenu from "../UserMenu"
-import { NavLink } from "react-router"
-
-import CoursesSection from "../MyCourses/CoursesSection"
 
 function Header() {
     return (

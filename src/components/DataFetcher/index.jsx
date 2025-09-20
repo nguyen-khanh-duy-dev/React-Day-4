@@ -11,6 +11,9 @@ function DataFetcher({ url, children }) {
             .then((data) => {
                 setData(data)
                 setLoading(false)
+                // Cần set Error lại ở đây = null. Bởi vì: Khi lần đầu sai url -> Error được set
+                // Nếu ko set lại thì Error vẫn lưu giá trị của lần đầu bị lỗi ở error
+                setError(null)
             })
             .catch((error) => {
                 setLoading(false)

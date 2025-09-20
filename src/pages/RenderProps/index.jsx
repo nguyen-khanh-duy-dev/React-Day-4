@@ -10,10 +10,7 @@ function RenderProps() {
                 <DataFetcher url="https://jsonplaceholder.typicode.com/posts?_limit=5">
                     {({ data, loading, error }) => {
                         if (loading) return <div>Loading posts...</div>
-                        if (error) return <div>Error: {error}</div>
-                        {
-                            console.log(data)
-                        }
+                        if (error) return <div>Error: {error.message}</div>
 
                         return (
                             <div className={styles.posts}>
@@ -28,8 +25,11 @@ function RenderProps() {
 
                 <DataFetcher url="https://jsonplaceholder.typicode.com/users?_limit=5">
                     {({ data, loading, error }) => {
+                        {
+                            console.log(error?.message)
+                        }
                         if (loading) return <div>Loading users...</div>
-                        if (error) return <div>Error: {error}</div>
+                        if (error) return <div>Error: {error.message}</div>
                         return (
                             <div className={styles.users}>
                                 <h3>Users</h3>
